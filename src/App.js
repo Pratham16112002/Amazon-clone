@@ -7,14 +7,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Checkout from "./Checkout";
 import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
+import Payment from "./Payment";
+
+import Orders from "./Orders";
+import ParentComponent from "./ParentComponent";
+
 
 function App() {
+  
   const [{},dispatch] = useStateValue();
 
     useEffect(() => {
       //  will only run one the compement loads 
-
-
       auth.onAuthStateChanged(authUser => {
         console.log('The User is >>> ', authUser);
 
@@ -33,7 +37,7 @@ function App() {
           })
         }
       })
-    }, [])
+    }, []);
     
   return (
     <Router>
@@ -43,8 +47,10 @@ function App() {
           </Route>
           <Route path="/checkout" element={[<Header/>,<Checkout/>]}>
           </Route>
+          <Route path="/payment" element={[<Header/>,<ParentComponent/>]}></Route>
           <Route path="/" element={[<Header/>,<Home/>]}>
           </Route>
+          <Route path="/orders" element={[<Orders/>]}></Route>
         </Routes>
       </div>
     </Router>
